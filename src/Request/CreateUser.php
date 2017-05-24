@@ -52,6 +52,17 @@ final class CreateUser implements Request
         $this->email = $value;
     }
 
+    /**
+     * @return array
+     */
+    public function getData()
+    {
+        return [
+            'first_name' => $this->getFirstName(),
+            'last_name' => $this->getLastName(),
+            'email' => $this->getEmail(),
+        ];
+    }
 
     /**
      * @return string
@@ -85,17 +96,5 @@ final class CreateUser implements Request
         }
 
         return $this->email;
-    }
-
-    /**
-     * @return array
-     */
-    public function getData()
-    {
-        return [
-            'first_name' => $this->getFirstName(),
-            'last_name' => $this->getLastName(),
-            'email' => $this->getEmail(),
-        ];
     }
 }
