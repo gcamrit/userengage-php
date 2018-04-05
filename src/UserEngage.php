@@ -14,7 +14,7 @@ class UserEngage
     /**
      * @var string
      */
-    private $apiUrl = 'https://app.userengage.io/api/public/';
+    private $apiUrl = 'https://app.userengage.com/api/public/';
 
     public function __construct($applicationKey)
     {
@@ -28,7 +28,7 @@ class UserEngage
         ]);
     }
 
-    public function user()
+    public function user(): User
     {
         return new User($this->client);
     }
