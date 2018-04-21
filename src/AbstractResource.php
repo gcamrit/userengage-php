@@ -41,6 +41,19 @@ class AbstractResource
         return $this->handleResponse($response);
     }
 
+    /**
+     * Handle UserEngage Success Response.
+     *
+     * @param ResponseInterface $response
+     * @return mixed
+     */
+    protected function handleResponse(ResponseInterface $response)
+    {
+        $stream = stream_for($response->getBody());
+
+        return json_decode($stream, true);
+    }
+
     public function find($uri)
     {
         try {
@@ -56,16 +69,11 @@ class AbstractResource
             throw $exception;
         }
     }
-    /**
-     * Handle UserEngage Success Response.
-     *
-     * @param ResponseInterface $response
-     * @return mixed
-     */
-    protected function handleResponse(ResponseInterface $response)
-    {
-        $stream = stream_for($response->getBody());
 
-        return json_decode($stream, true);
+    public function delete($uri)
+    {
+        $response = $this->client->delete($uri);
+
+        return $this->handleResponse($response);
     }
 }

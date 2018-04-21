@@ -9,11 +9,7 @@ use Gc\UserEngage\AbstractResource;
  * @package Gc\UserEngage\Http
  */
 final class User extends AbstractResource
-{use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Uri;
-use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\Psr7\stream_for;
-
+{
 
     /**
      * @param array $userDetail
@@ -95,8 +91,6 @@ use function GuzzleHttp\Psr7\stream_for;
      */
     public function delete($id)
     {
-        $response = $this->client->delete(sprintf('users/%s/', $id));
-
-        return $this->handleResponse($response);
+        return parent::delete(sprintf('users/%s/', $id));
     }
 }
