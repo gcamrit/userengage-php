@@ -62,7 +62,7 @@ final class User extends AbstractResource
      */
     public function findByCustomAttribute($lookup = '__gte', $attribute)
     {
-        return $this->find(sprintf('users/search/?custom_attr%s=%s', $lookup, $attribute);
+        return $this->find(sprintf('users/search/?custom_attr%s=%s', $lookup, $attribute));
     }
 
     public function addTag($userId, $tagLabel)
