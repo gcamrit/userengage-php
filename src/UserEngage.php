@@ -28,7 +28,7 @@ class UserEngage
         ]);
     }
 
-    public function user(): User
+    public function user()
     {
         return new User($this->client);
     }
