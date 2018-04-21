@@ -2,42 +2,26 @@
 
 namespace Gc\UserEngage\Http;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Uri;
-use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\Psr7\stream_for;
+use Gc\UserEngage\AbstractResource;
 
 /**
  * Class User
  * @package Gc\UserEngage\Http
  */
-final class User
-{
-    /**
-     * @var Client
-     */
-    private $client;
+final class User extends AbstractResource
+{use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Uri;
+use Psr\Http\Message\ResponseInterface;
+use function GuzzleHttp\Psr7\stream_for;
 
-    /**
-     * User constructor.
-     * @param Client $client
-     */
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
 
     /**
      * @param array $userDetail
-     * @return string
+     * @return array
      */
-    public function create(array $userDetail)
+    public function add(array $userDetail)
     {
-        $response = $this->client->post('users/', [
-            'json' => $userDetail
-        ]);
-
-        return json_encode($response->getBody(), true);
+        return $this->create('users/', $userDetail);
     }
 
     /**
@@ -48,23 +32,7 @@ final class User
      */
     public function findByEmail($email)
     {
-        $response = $this->client->get('users/search/?email=' . $email);
-
-        return $this->handleResponse($response);
-    }
-
-    /**
-     * Handle UserEngage Success Response.
-     *
-     * @param ResponseInterface $response
-     * @return mixed
-     */
-    private function handleResponse(ResponseInterface $response)
-    {
-        $stream = stream_for($response->getBody());
-        $data = json_decode($stream, true);
-
-        return $data;
+        return $this->find(sprintf('users/search/?email=$s', $email));
     }
 
     /**
@@ -75,9 +43,7 @@ final class User
      */
     public function findByPhoneNumber($phoneNumber)
     {
-        $response = $this->client->get('users/search/?phone_number=' . $phoneNumber);
-
-        return $this->handleResponse($response);
+        return $this->find(sprintf('users/search/?phone_number=%s', $phoneNumber));
     }
 
     /**
@@ -88,9 +54,7 @@ final class User
      */
     public function findByKey($key)
     {
-        $response = $this->client->get('users/search/?key=' . $key);
-
-        return $this->handleResponse($response);
+        return $this->find('users/search/?key=' . $key);
     }
 
     /**
@@ -102,19 +66,14 @@ final class User
      */
     public function findByCustomAttribute($lookup = '__gte', $attribute)
     {
-        $response = $this->client->get('users/search/?custom_attr. '$lookup . '=' . $attribute);
-
-        return $this->handleResponse($response);
+        return $this->find(sprintf('users/search/?custom_attr%s=%s', $lookup, $attribute);
     }
 
     public function addTag($userId, $tagLabel)
     {
         $uri = sprintf('users/%s/add_tag/', $userId);
-        $response = $this->client->post(new Uri($uri), [
-            'json' => ['name' => $tagLabel]
-        ]);
 
-        return $this->handleResponse($response);
+        return $this->create($uri, ['name' => $tagLabel]);
     }
 
     /**
@@ -125,9 +84,7 @@ final class User
      */
     public function findById($key)
     {
-        $response = $this->client->get(sprintf('users/%s/', $key));
-
-        return $this->handleResponse($response);
+        return $this->find(sprintf('users/%s/', $key));
     }
 
     /**
@@ -140,6 +97,6 @@ final class User
     {
         $response = $this->client->delete(sprintf('users/%s/', $id));
 
-        return json_encode($response->getBody(), true);
+        return $this->handleResponse($response);
     }
 }
