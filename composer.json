@@ -9,12 +9,22 @@
         }
     ],
     "require": {
-        "php" : "~5.6|~7.0",
-      "guzzlehttp/guzzle": "^6.2"
+        "php": ">=5.6",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "autoload": {
         "psr-4": {
             "Gc\\UserEngage\\": "src"
         }
-    }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "master"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
