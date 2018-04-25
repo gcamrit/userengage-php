@@ -17,11 +17,6 @@
             "Gc\\UserEngage\\": "src"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "master"
-        }
-    },
     "config": {
         "sort-packages": true
     },
