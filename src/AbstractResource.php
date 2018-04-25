@@ -32,7 +32,7 @@ class AbstractResource
      *
      * @return array
      */
-    public function create($uri, array $detail)
+    protected function create($uri, array $detail)
     {
         $response = $this->client->post($uri, [
             'json' => $detail,
@@ -54,7 +54,7 @@ class AbstractResource
         return json_decode($stream, true);
     }
 
-    public function find($uri)
+    protected function find($uri)
     {
         try {
             $response = $this->client->get($uri);
@@ -70,7 +70,7 @@ class AbstractResource
         }
     }
 
-    public function delete($uri)
+    protected function delete($uri)
     {
         $response = $this->client->delete($uri);
 
