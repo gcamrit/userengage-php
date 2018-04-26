@@ -53,6 +53,16 @@ final class Company extends AbstractResource
         return $this->create($uri, $tags);
     }
 
+    public function setAttributesUsingCompanyId($companyId, array $attributes)
+    {
+        return $this->create(sprintf('companies-by-id/%s/set_multiple_attributes/', $companyId), $attributes);
+    }
+
+    public function setAttributes($modelId, array $attributes)
+    {
+        return $this->create(sprintf('companies/:id/set_multiple_attributes/', $modelId), $attributes);
+    }
+
 
     /**
      * Simple HTTP DELETE request to Company API to delete company.
