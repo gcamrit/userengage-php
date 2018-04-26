@@ -28,7 +28,18 @@ final class User extends AbstractResource
      */
     public function findByEmail($email)
     {
-        return $this->find(sprintf('users/search/?email=$s', $email));
+        return $this->find(sprintf('users/search/?email=%s', $email));
+    }
+
+    /**
+     * Find user by email.
+     *
+     * @param string $userId
+     * @return string
+     */
+    public function findByUserId($userId)
+    {
+        return $this->find(sprintf('users-by-id/search/?user_id=%s', $userId));
     }
 
     /**
@@ -69,7 +80,12 @@ final class User extends AbstractResource
     {
         $uri = sprintf('users/%s/add_tag/', $userId);
 
-        return $this->create($uri, ['name' => $tagLabel]);
+        $tagLabels = (is_string($tagLabel)) ? [$tagLabel] : $tagLabel;
+        $tags = [];
+        foreach ($tagLabels as $tagLabel) {
+            $tags[] = ['name' => $tagLabel];
+        }
+        return $this->create($uri, $tags);
     }
 
     /**
