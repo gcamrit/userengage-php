@@ -3,6 +3,7 @@
 namespace Gc\UserEngage;
 
 use Gc\UserEngage\Http\Company;
+use Gc\UserEngage\Http\Event;
 use Gc\UserEngage\Http\User;
 use GuzzleHttp\Client;
 
@@ -37,5 +38,9 @@ class UserEngage
     public function company()
     {
         return new Company($this->client);
+    }
+    public function event()
+    {
+        return new Event($this->client);
     }
 }
