@@ -99,6 +99,15 @@ final class User extends AbstractResource
         return $this->find(sprintf('users/%s/', $key));
     }
 
+    public function update($modelId, array $details)
+    {
+        $response = $this->client->put(sprintf('users/%s/', $modelId), [
+            'json' => $details,
+        ]);
+
+        return $this->handleResponse($response);
+    }
+
     /**
      * Simple HTTP DELETE request to Users API to delete user.
      *
