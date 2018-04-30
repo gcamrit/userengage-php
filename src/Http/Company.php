@@ -43,12 +43,7 @@ final class Company extends AbstractResource
     public function addTag($companyId, $tagLabel)
     {
         $uri = sprintf('companies-by-id/%s/add_tag/', $companyId);
-
-        $tagLabels = (is_string($tagLabel)) ? [$tagLabel] : $tagLabel;
-        $tags = [];
-        foreach ($tagLabels as $tagLabel) {
-            $tags[] = ['name' => $tagLabel];
-        }
+        $tags = ['name' => $tagLabel];
 
         return $this->create($uri, $tags);
     }
