@@ -48,6 +48,15 @@ final class Company extends AbstractResource
         return $this->create($uri, $tags);
     }
 
+    public function update($modelId, array $details)
+    {
+        $response = $this->client->put(sprintf('companies/%s/', $modelId), [
+            'json' => $details,
+        ]);
+
+        return $this->handleResponse($response);
+    }
+
     public function setAttributesUsingCompanyId($companyId, array $attributes)
     {
         return $this->create(sprintf('companies-by-id/%s/set_multiple_attributes/', $companyId), $attributes);
