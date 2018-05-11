@@ -104,6 +104,11 @@ final class User extends AbstractResource
         return $this->handleResponse($response);
     }
 
+    public function setAttributesUsingUserId($userId, array $attributes)
+    {
+        return $this->create(sprintf('users-by-id/%s/set_multiple_attributes/', $userId), $attributes);
+    }
+
     /**
      * Simple HTTP DELETE request to Users API to delete user.
      *
